@@ -1,6 +1,7 @@
 {
   "name": "rlvendramini/randompassword",
   "description": "Simple Random Password Generate Class",
+  "minimum-stability": "dev",
   "homepage": "https://github.com/rlvendramini/randompassword",
   "keywords": [
     "password",
@@ -11,11 +12,13 @@
   "authors": [
       {
           "name": "Renan Luiz Vendramini",
-          "homepage": "https://github.com/rlvendramini/"
+          "email": "rlvendramini@outlook.com",
+          "homepage": "https://github.com/rlvendramini/",
+          "role": "Developer"
       }
   ],
   "require": {
-    "php": ">=5.3"
+    "php": ">=5.2"
   },
   "autoload": {
     "classmap": ["lib/"] 
