@@ -1,0 +1,23 @@
+{
+  "name": "rlvendramini/randompassword",
+  "description": "Simple Random Password Generate Class",
+  "homepage": "https://github.com/rlvendramini/randompassword",
+  "keywords": [
+    "password",
+    "random",
+    "generator"
+  ],
+  "license": "MIT",
+  "authors": [
+      {
+          "name": "Renan Luiz Vendramini",
+          "homepage": "https://github.com/rlvendramini/"
+      }
+  ],
+  "require": {
+    "php": ">=5.3"
+  },
+  "autoload": {
+    "classmap": ["lib/"] 
+  }
+}
