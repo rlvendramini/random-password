@@ -24,6 +24,9 @@
 			];
 			$this->options['length'] = 12;
 			$this->options['characters'] = array_keys($this->core['characters']);
+			if(empty($this->core['extra'])){
+				array_pop($this->options['characters']);
+			}
 		}
 
 		/**
