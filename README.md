@@ -1,6 +1,7 @@
 # Random Password Generator
-Simple PHP class to generate random passwords
 [![Build Status][rlvendramini-image]][rlvendramini-url]
+
+Simple PHP class to generate random passwords
 
 
 ## How does it work?
