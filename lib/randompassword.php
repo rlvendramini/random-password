@@ -2,7 +2,7 @@
 	/**
 	 * Class that generates random passwords
 	 * @author Renan Luiz Vendramini <renan@alboompro.com>
-	 * @version v1.0.0
+	 * @version v0.1.0
 	 */
 	class randomPassword {
 		private $core;
