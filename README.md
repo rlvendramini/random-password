@@ -1,5 +1,5 @@
 # Random Password Generator
-[![Build Status][rlvendramini-image]][rlvendramini-url]
+[Build Status]
 
 Simple PHP class to generate random passwords
 
@@ -28,7 +28,7 @@ require __DIR__ . '/vendor/autoload.php';
 And then, create your object
 
 ```php
-$var = new randomPassword();
+$object = new randomPassword();
 ```
 
 ### Configuration
@@ -82,7 +82,3 @@ You can call config methods in chain, and then generate, like this
 ```php
 $password = $object->setPasswordLength( int )->setPasswordCharacters( array )->generate();
 ```
-
-[rlvendramini-url]: http://rlvendramini.com.br
-[rlvendramini-image]: http://rlvendramini.com.br/img/logo.svg
-
