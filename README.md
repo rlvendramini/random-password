@@ -1,5 +1,4 @@
 # Random Password Generator
-[Build Status]
 
 Simple PHP class to generate random passwords
 
