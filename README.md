@@ -49,7 +49,7 @@ Choose your prefered characters types from the following options:
 and then give an array of options as `generate` function's second parameter
 
 ```php
-$object->setPasswordCharacters(20, ['lowercase', 'uppercase']);
+$password = RandomPassword::generate(20, ['lowercase', 'uppercase']);
 ```
 
 If you don't, all types are selected by default
