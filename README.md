@@ -1,83 +1,55 @@
 # Random Password Generator
 
-Simple PHP class to generate random passwords
+Simple PHP static class to generate random passwords
 
 
 ## How does it work?
 
 You can simple load the class and call the generate method to get your random password.
-If you want more options, you can customize your password's length, characters's types and add some extra characters too.
+If you want more options, you can customize your password's length and characters's types.
 
 ## Usage
 
 ### Install
 
 ```bash
-$ composer require rlvendramini/randompassword
+$ composer require rlvendramini/random-password
 ```
 
 ### Setup
 
-Require the autoload composer's generated class
+It's very simple:
+
+Require the autoload composer's generated class...
 
 ```php
 require __DIR__ . '/vendor/autoload.php';
 ```
 
-And then, create your object
+...and then generate a password!
 
 ```php
-$object = new randomPassword();
+$password = RandomPassword::generate();
 ```
-
-### Configuration
-
-If you just want a simple 12 length random uppercase characters, lowercase characters, symbols and numbers password, create a randompassword object and call generate method.
-If you want to set your own options, you can call the configuration methods.
 
 #### Set password length
-Choose the new password's length
+Choose the new password's length giving it as the `generate` function's first parameter
 ```php
-$object->setPasswordLength( int );
+$password = RandomPassword::generate(30);
 ```
+If you dont't, default length is **20**.
 
 #### Set characters types
-Choose your prefered characters types from the default options: 
-'lower' : Lowercase chars,
-'upper' : Uppercase chars,
-'num' : Numbers,
-'sym' : Symbols
+Choose your prefered characters types from the following options:
+'lowercase' : Lowercase characters,
+'uppercase' : Uppercase characters,
+'numbers' : Numbers,
+'special' : Special characters
+
+and then give an array of options as `generate` function's second parameter
 
 ```php
-$object->setPasswordCharacters( array('lower', 'upper') );
+$object->setPasswordCharacters(20, ['lowercase', 'uppercase']);
 ```
 
-If you don't call this method, all types are selected by default
-
-#### Set extra characters
-You can set an array with your custom chars you want to be considered in password generating
-
-```php
-$object->setExtraCharacters( array('prefered characters', 'can add how many you want', 'seriously!') );
-```
-If you set this extra characters, they will automatically considered in generating proccess
-
-#### Unset extra characters
-You can destroy the extra characters to go back default
-
-```php
-$object->unsetExtraCharacters();
-```
-
-### Run!
-
-#### Generate!
-```php
-$password = $object->generate();
-```
-
-#### Chain methods
-You can call config methods in chain, and then generate, like this
-```php
-$password = $object->setPasswordLength( int )->setPasswordCharacters( array )->generate();
-```
+If you don't, all types are selected by default
