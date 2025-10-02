@@ -1,61 +1,118 @@
 <?php
-	/**
-	 * Class that generates random passwords
-	 * @author Renan Luiz Vendramini <renan@alboompro.com>
-	 * @version v2.0
-	 */
-	class RandomPassword {
 
-		const STR_LENGTH = 20;
+declare(strict_types=1);
 
-		static private function characters($picked_groups = []) {
-			$groups = [
-				'lowercase' => range('a', 'z'),
-				'uppercase' => range('A', 'Z'),
-				'numbers' => range(0, 9),
-				'special' => ['!','@','#','$','%','&','*','(',')','-','_','=','+','.',':',';','\\','\/',']','[','}','{','~','^',',','|']
-			];
+/**
+ * Class that generates random passwords
+ *
+ * @author Renan Luiz Vendramini <renan@alboompro.com>
+ * @version v3.0
+ */
+class RandomPassword
+{
+    private const STR_LENGTH = 20;
 
-			return empty($picked_groups) ? $groups : array_filter($groups, function($key) use ($picked_groups) {
-				return in_array($key, $picked_groups);
-			}, ARRAY_FILTER_USE_KEY);
-		}
+    /**
+     * Gets character groups for password generation
+     *
+     * @param array<string> $pickedGroups Array of group names to use
+     * @return array<string, array<int|string>> Available character groups
+     */
+    private static function characters(array $pickedGroups = []): array
+    {
+        $groups = [
+            'lowercase' => range('a', 'z'),
+            'uppercase' => range('A', 'Z'),
+            'numbers' => range(0, 9),
+            'special' => ['!', '@', '#', '$', '%', '&', '*', '(', ')', '-', '_', '=', '+', '.', ':', ';', '\\', '/', ']', '[', '}', '{', '~', '^', ',', '|'],
+        ];
 
-		static private function shuffle_character_groups(&$characters) {
-			foreach($characters as $key => $value) {
-				shuffle($characters[$key]);
-			}
-			
-			shuffle($characters);
+        return empty($pickedGroups) ? $groups : array_filter(
+            $groups,
+            fn ($key) => in_array($key, $pickedGroups, true),
+            ARRAY_FILTER_USE_KEY
+        );
+    }
 
-			return $characters;
-		}
+    /**
+     * Shuffles all character groups for better randomness
+     *
+     * @param array<string, array<int|string>> $characters Character groups
+     * @return void
+     */
+    private static function shuffleCharacterGroups(array &$characters): void
+    {
+        foreach ($characters as $key => $value) {
+            shuffle($characters[$key]);
+        }
+    }
 
-		static private function pick_character_group($characters) {
-			return array_keys($characters)[rand(0, count($characters) - 1)];
-		}
+    /**
+     * Picks a random character group
+     *
+     * @param array<string, array<int|string>> $characters Available character groups
+     * @return string Selected group name
+     */
+    private static function pickCharacterGroup(array $characters): string
+    {
+        $keys = array_keys($characters);
+        $count = count($keys);
 
-		static private function pick_char($characters) {
-			$group = self::pick_character_group($characters);
-			$group_limit = count($characters[$group]);
+        if ($count === 0) {
+            return '';
+        }
 
-			return $characters[$group][rand(0, $group_limit - 1)];
-		}
+        $randomIndex = random_int(0, $count - 1);
 
-		/**
-		 * Generates a random password based in your configurations, or default (length 12, all sorts of characters)
-		 * If you defined a sort of custom characters, they will automatically be considered in characters mix
-		 * @return [string] [returns a generated password]
-		 */
-		static public function generate($givenLength = null, $groups = []) {
-			$characters = self::characters($groups);
-			$str;
+        return (string) $keys[$randomIndex];
+    }
 
-			for($i = $givenLength ?: self::STR_LENGTH; $i > 0; $i--) {				
-				$str .= self::pick_char($characters);
-				self::shuffle_character_groups($characters);
-			}
+    /**
+     * Picks a random character from available groups
+     *
+     * @param array<string, array<int|string>> $characters Available character groups
+     * @return string|int Random character
+     */
+    private static function pickChar(array $characters): string|int
+    {
+        $group = self::pickCharacterGroup($characters);
+        $groupLimit = count($characters[$group]);
 
-			return $str;
-		}
-	}
+        if ($groupLimit === 0) {
+            return '';
+        }
+
+        $randomIndex = random_int(0, $groupLimit - 1);
+
+        return $characters[$group][$randomIndex];
+    }
+
+    /**
+     * Generates a random password based on configurations
+     *
+     * If you define custom character groups, they will automatically be considered in the character mix.
+     *
+     * @param int|null $givenLength Desired password length (default: 20)
+     * @param array<string> $groups Character groups to use: 'lowercase', 'uppercase', 'numbers', 'special'
+     * @return string Generated password
+     */
+    public static function generate(?int $givenLength = null, array $groups = []): string
+    {
+        $characters = self::characters($groups);
+        $length = $givenLength ?? self::STR_LENGTH;
+
+        // Return empty string if no valid character groups are available
+        if (empty($characters) || $length <= 0) {
+            return '';
+        }
+
+        $password = '';
+
+        for ($i = 0; $i < $length; $i++) {
+            $password .= self::pickChar($characters);
+            self::shuffleCharacterGroups($characters);
+        }
+
+        return $password;
+    }
+}

@@ -1,0 +1,10 @@
+parameters:
+    level: 9
+    paths:
+        - lib
+        - tests
+    excludePaths:
+        - vendor
+    phpVersion: 80400
+    reportUnmatchedIgnoredErrors: true
+

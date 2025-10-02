@@ -1,8 +1,8 @@
 {
   "name": "rlvendramini/random-password",
   "description": "Simple Random Password Generate Class",
-  "minimum-stability": "dev",
-  "homepage": "https://github.com/rlvendramini/randompassword",
+  "minimum-stability": "stable",
+  "homepage": "https://github.com/rlvendramini/random-password",
   "keywords": [
     "password",
     "random",
@@ -18,9 +18,19 @@
       }
   ],
   "require": {
-    "php": ">=5.2"
+    "php": ">=8.0"
   },
   "autoload": {
     "classmap": ["lib/"] 
+  },
+  "scripts": {
+      "test": "./vendor/bin/phpunit --testdox tests",
+      "fix": "./vendor/bin/php-cs-fixer fix",
+      "lint": "./vendor/bin/phpstan analyse"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^12.3.15",
+    "friendsofphp/php-cs-fixer": "^3.88.2",
+    "phpstan/phpstan": "^2.1.30"
   }
 }
