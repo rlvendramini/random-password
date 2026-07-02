@@ -48,5 +48,5 @@ return $config
         'whitespace_after_comma_in_array' => true,
     ])
     ->setRiskyAllowed(true)
+    ->setUnsupportedPhpVersionAllowed(true)
     ->setFinder($finder);
-
